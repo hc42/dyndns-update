@@ -7,6 +7,7 @@ define ('DB_USER', '<YOUR_USER_NAME>');
 define ('DB_PASSWD', '<YOUR_PASSWORD>');
 define ('DNSTIMEOUT', '600');
 define ('DNSKEY', '<PATH_TO_YOUR_DNS_KEY_FILE>');
+define ('DNSSERVER', '<IP_OF_YOUR_NS_SERVER>');
 
 /**
  * Perform Dyndns update
@@ -149,6 +150,7 @@ final class Ddns_update {
   static private function _apply_update ($data) {
     $_get_update_string = function ($data, $v6) {
       return
+      'server '.DNSSERVER."\n".
       'update delete '.$data['domain'].' '.($v6 ? 'AAAA' : 'A')."\n".
       'update add '.$data['domain'].' '.DNSTIMEOUT.' '.($v6 ? 'AAAA' : 'A').' '.$data[($v6 ? 'ipv6' : 'ipv4')]."\n";
     };
